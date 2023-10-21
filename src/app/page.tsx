@@ -1,8 +1,6 @@
 "use client";
-import { Button } from "@/components/ui/button";
-
-import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import { useState } from "react";
+import AddTodo from "./components/AddTodo";
 
 export default function Home() {
   const [inputTodo, setInputTodo] = useState<string>("");
@@ -12,15 +10,9 @@ export default function Home() {
   };
   return (
     <main>
-      <div>
-        <Input type="text" value={inputTodo} onChange={handleChange} />
-        <Button>Do it</Button>
-      </div>
-      <div>
-        <ul>
-          <li>{inputTodo}</li>
-        </ul>
-      </div>
+      <AddTodo onChange={handleChange} inputTodo={inputTodo} />
+
+      <span>{inputTodo}</span>
     </main>
   );
 }
