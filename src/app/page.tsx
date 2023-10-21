@@ -1,12 +1,26 @@
-import Image from "next/image";
+"use client";
 import { Button } from "@/components/ui/button";
-import { CardWithForm } from "./components/CardWithForm";
+
+import { Input } from "@/components/ui/input";
+import React, { useState } from "react";
 
 export default function Home() {
+  const [inputTodo, setInputTodo] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputTodo(e.target.value);
+  };
   return (
     <main>
-      <Button>ぼたんです</Button>
-      <CardWithForm />
+      <div>
+        <Input type="text" value={inputTodo} onChange={handleChange} />
+        <Button>Do it</Button>
+      </div>
+      <div>
+        <ul>
+          <li>{inputTodo}</li>
+        </ul>
+      </div>
     </main>
   );
 }
