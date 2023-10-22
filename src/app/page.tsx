@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import TodoCard from "./components/TodoCard";
+import AddTodo from "./components/AddTodo";
 
 export default function Home() {
   return (
     <main className="w-full h-full grid place-content-center place-items-center">
-      <TodoCard />
+      <AddTodo />
     </main>
   );
 }
