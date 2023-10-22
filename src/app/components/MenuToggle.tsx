@@ -3,16 +3,18 @@ import React from "react";
 import { HamburgerMenuIcon, Cross2Icon } from "@radix-ui/react-icons";
 
 type MenuToggleProps = {
-  setToggle: () => void;
+  handler: () => void;
   toggle: boolean;
+  className?: string;
 };
-const MenuToggle: React.FC<MenuToggleProps> = ({ setToggle, toggle }) => {
-  const toggleHandler = () => {
-    setToggle;
-  };
+const MenuToggle: React.FC<MenuToggleProps> = ({
+  handler,
+  toggle,
+  className,
+}) => {
   return (
-    <button onClick={toggleHandler}>
-      <Cross2Icon />
+    <button onClick={handler} className={className}>
+      {toggle ? <Cross2Icon /> : <HamburgerMenuIcon />}
     </button>
   );
 };
