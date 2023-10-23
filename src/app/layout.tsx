@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "./components/ThemeProvider";
+import { ThemeProvider } from "../components/ThemeProvider";
 import React, { useState } from "react";
-import Header from "./components/Header";
+import Header from "../components/Header";
 
 type RootLayoutProps = {
   children: React.ReactNode;
