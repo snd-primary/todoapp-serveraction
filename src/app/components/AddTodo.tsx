@@ -85,7 +85,7 @@ export const AddTodoForm = () => {
               control={form.control}
               name="hour"
               render={({ field }) => (
-                <FormItem className="relative grid grid-cols-[130px_40px] items-center gap-2">
+                <FormItem className="relative grid grid-cols-2 w-full sm:grid-cols-[130px_40px] items-center gap-2">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
@@ -118,7 +118,7 @@ export const AddTodoForm = () => {
               control={form.control}
               name="minute"
               render={({ field }) => (
-                <FormItem className="relative grid grid-cols-[100px_40px] items-center gap-2">
+                <FormItem className="relative grid grid-cols-2 w-full sm:grid-cols-[100px_40px] items-center gap-2">
                   <FormControl>
                     <Input type="number" placeholder="0~59" {...field} />
                   </FormControl>
@@ -132,7 +132,7 @@ export const AddTodoForm = () => {
               control={form.control}
               name="secound"
               render={({ field }) => (
-                <FormItem className="relative grid grid-cols-[100px_40px] items-center gap-2">
+                <FormItem className="relative grid grid-cols-2 w-full sm:grid-cols-[100px_40px] items-center gap-2">
                   <FormControl>
                     <Input type="number" placeholder="0~59" {...field} />
                   </FormControl>
@@ -143,7 +143,7 @@ export const AddTodoForm = () => {
             />
           </div>
         </div>
-        <Button type="submit" className="w-48">
+        <Button type="submit" className="w-full">
           Do it
         </Button>
       </form>
