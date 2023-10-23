@@ -11,7 +11,7 @@ const Header = () => {
     setToggle((state) => !state);
   };
   return (
-    <header className="flex w-full border-b-2 items-center justify-between p-2 relative">
+    <header className="flex fixed top-0 left-0 w-full border-b-2 items-center justify-between p-2">
       <Link href="/" className="flex items-center gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
