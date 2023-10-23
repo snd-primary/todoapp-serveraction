@@ -11,8 +11,10 @@ datasource db {
 }
 
 model Todo {
-  id     Int      @id @default(autoincrement())
-  title  String
-  doTime String
-  date   DateTime @default(now())
+  id      Int      @id @default(autoincrement())
+  title   String
+  hour    Int
+  minutes Int
+  seconds Int
+  date    DateTime @default(now())
 }
