@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "../components/ThemeProvider";
 import React, { useState } from "react";
 import Header from "../components/Header";
+import { TodoProvider } from "@/context/TodoProvider";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <Header />
-          {children}
+          <main className="w-full max-w-full h-full grid place-content-center place-items-center">
+            <TodoProvider>{children}</TodoProvider>
+          </main>
         </ThemeProvider>
       </body>
     </html>
