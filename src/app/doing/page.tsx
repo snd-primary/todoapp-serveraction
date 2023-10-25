@@ -1,16 +1,20 @@
 "use client";
+import CountDown from "@/components/CountDown";
 import { useTodo } from "@/context/TodoProvider";
+import { useEffect } from "react";
 
-const TodoItem = () => {
+const TodoItem: React.FC = () => {
   const [todo] = useTodo();
+  const convertHourToSec = todo.hour * 60 * 60;
+  const convertMinToSec = todo.minutes * 60;
+
+  const TOTAL_SECONDS = convertHourToSec + convertMinToSec + todo.seconds;
 
   return (
     <>
       <div>
-        <span>{todo?.title}</span>
-        <span>{todo?.hour}</span>
-        <span>{todo?.minutes}</span>
-        <span>{todo?.seconds}</span>
+        <li>{todo?.title}</li>
+        <CountDown initialCount={TOTAL_SECONDS} />
       </div>
     </>
   );
