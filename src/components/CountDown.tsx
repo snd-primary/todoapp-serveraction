@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 type Props = {
   initialCount: number;
 };
@@ -21,10 +21,9 @@ const CountDown: React.FC<Props> = ({ initialCount }) => {
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
 
-    if (count > 0 && !isRunning) {
+    if (!isRunning && count > 0) {
       setIsRunning((state) => true);
     }
-
     if (isRunning && count > 0) {
       timer = setInterval(() => tick(), 1000);
     }
@@ -48,6 +47,7 @@ const CountDown: React.FC<Props> = ({ initialCount }) => {
   return (
     <div>
       <p>残り時間：{formatTime(count)}</p>
+      <div className="progress-circle"></div>
     </div>
   );
 };

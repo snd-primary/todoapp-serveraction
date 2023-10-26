@@ -32,13 +32,14 @@ import {
 import { ClockIcon, CheckboxIcon } from "@radix-ui/react-icons";
 import { useTodo } from "@/context/TodoProvider";
 import { useRouter } from "next/navigation";
+import { totalSeconds } from "@/lib/totalSeconds";
 
 const TodoForm: React.FC = () => {
   const router = useRouter();
   const [, setTodo] = useTodo();
 
   const form = useForm<z.infer<typeof todoFormSchema>>({
-    resolver: zodResolver(todoFormSchema),
+    resolver: zodResolver(todoFormSchema, {}, { mode: "async" }),
     defaultValues: {
       title: "",
       hour: 0,
@@ -73,11 +74,7 @@ const TodoForm: React.FC = () => {
                   render={({ field }) => (
                     <FormItem className="max-w-lg">
                       <FormControl>
-                        <Input
-                          type="text"
-                          placeholder="仕事、勉強・・・"
-                          {...field}
-                        />
+                        <Input type="text" placeholder="Your Todo" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
