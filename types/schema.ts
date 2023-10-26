@@ -22,7 +22,7 @@ export const todoFormSchema = z
     if (TOTAL_SECONDS < 10) {
       ctx.addIssue({
         code: z.ZodIssueCode.too_small,
-        minimum: 5,
+        minimum: 10,
         type: "number",
         inclusive: true,
         message: "合計が10秒以下のタスクは登録できません",

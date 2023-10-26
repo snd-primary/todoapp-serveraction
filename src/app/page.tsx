@@ -32,7 +32,6 @@ import {
 import { ClockIcon, CheckboxIcon } from "@radix-ui/react-icons";
 import { useTodo } from "@/context/TodoProvider";
 import { useRouter } from "next/navigation";
-import { totalSeconds } from "@/lib/totalSeconds";
 
 const TodoForm: React.FC = () => {
   const router = useRouter();
