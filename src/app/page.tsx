@@ -29,9 +29,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { ClockIcon, CheckboxIcon } from "@radix-ui/react-icons";
+import { ClockIcon, CheckboxIcon, ResetIcon } from "@radix-ui/react-icons";
 import { useTodo } from "@/context/TodoProvider";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const TodoForm: React.FC = () => {
   const router = useRouter();
@@ -49,6 +50,7 @@ const TodoForm: React.FC = () => {
 
   const onSubmit = (values: z.infer<typeof todoFormSchema>) => {
     setTodo(values);
+    localStorage.setItem("todo", JSON.stringify(values));
     router.push("/doing");
   };
 

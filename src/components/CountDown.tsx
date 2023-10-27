@@ -42,10 +42,10 @@ const CountDown: React.FC<Props> = ({ initialCount }) => {
       <div className="progress-circle">
         <CirclarProgress
           initialCount={initialCount}
-          size={250}
-          strokeWidth={20}
+          size={500}
+          strokeWidth={40}
           count={count}
-          color="red"
+          color="#aaa"
         />
       </div>
     </div>
