@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "../components/ThemeProvider";
-import React, { useState } from "react";
+import { fontSans } from "@/lib/font";
+import { ThemeProvider } from "../context/ThemeProvider";
+import React from "react";
 import Header from "../components/Header";
 import { TodoProvider } from "@/context/TodoProvider";
 
@@ -17,10 +18,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "w-full grid  relative min-h-screen bg-background font-mono antialiased"
+          "w-full grid  relative min-h-screen bg-background font-mono antialiased",
+          fontSans.variable
         )}
       >
         <ThemeProvider
