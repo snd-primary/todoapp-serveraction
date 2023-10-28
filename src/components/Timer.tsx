@@ -1,10 +1,6 @@
 import { formatTime } from "@/lib/formatTime";
 import React, { useEffect, useState } from "react";
 import CirclarProgress from "./CirclarProgress";
-import { Button } from "./ui/button";
-import { ResetIcon, StopIcon } from "@radix-ui/react-icons";
-import { PlayIcon } from "lucide-react";
-import { TodoProps } from "types/type";
 import { Badge } from "./ui/badge";
 
 interface Props {
@@ -38,7 +34,6 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
 
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
-
     if (isRunning && count > 0) {
       timer = setInterval(() => tick(), 1000);
     }
@@ -50,7 +45,7 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
 
   return (
     <div>
-      <span className="flex items-center gap-3">
+      <div className="flex items-center gap-3">
         <h2 className="text-4xl font-bold">
           {title === "" ? "NoTitle" : title}
         </h2>
@@ -63,7 +58,7 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
         >
           {isRunning ? "running" : "waiting..."}
         </Badge>
-      </span>
+      </div>
       <p className="text-gray-500">残り時間: {formatTime(count)}</p>
       <div className="progress-circle">
         <CirclarProgress
