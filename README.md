@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Summary
 
-## Getting Started
+Next.js,React の学習を目的に作成した TODO タイマー(todo-chain)のリポジトリ。
 
-First, run the development server:
+## Loadmap
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+condition を 4 段階設けて、最終的な完成まで持っていく。（学習目的なので敢えて遠回りをしている部分も多いにある。）
+学習した内容を振り返ることができるように、各コンディションは`cond`(1~4)の名前でブランチとして管理している。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### cond1 [done]
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+cond1 では、React の理解に注力する。
+KVS の類や Cookie などもこの段階では敢えて使わない。
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**【要件】**
 
-## Learn More
+- セットされたデータは useState に持たせる
+- 複数ページで効率的に状態を共有するために、ContextAPI を用いて実装する
 
-To learn more about Next.js, take a look at the following resources:
+### cond-2 [doing]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+セットされたデータを LocalStorage に渡して永続化。（cond1 で実装した内容に加筆修正を加えて実装を進めることになる）
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**【要件】**
 
-## Deploy on Vercel
+- ブラウザを閉じてもタスクが走り続ける
+- 作成したタスクの履歴閲覧＆削除＆再実行を実装
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### cond-3 [still]
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+cond2 で実装した機能に加えて、ログイン認証を追加する
+
+- NextAuth を用いた GoogleAccount でのログイン認証
+
+### cond-4 [still]
+
+ログイン認証に加え、supabase を導入。
+
+**【要件】**
+
+- RESTAPI を用いたデータ fetch と CRUD 実装
+- ユーザー固有のデータ管理
+- アカウント作成時 LocalStorage にデータが有れば、それを Supabase 側にも反映させる
+- 作成したタスクの履歴閲覧＆削除＆再実行を実装
