@@ -52,7 +52,7 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
     <div>
       <span className="flex items-center gap-3">
         <h2 className="text-4xl font-bold">
-          {title === "" ? "NoTitle..." : title}
+          {title === "" ? "NoTitle" : title}
         </h2>
         <Badge
           className={`${
@@ -61,30 +61,22 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
               : "bg-muted border border-current text-foreground "
           } mt-1 text-xs select-none pointer-events-none`}
         >
-          {isRunning ? "running" : "stand-by"}
+          {isRunning ? "running" : "waiting..."}
         </Badge>
       </span>
-      <p>残り時間：{formatTime(count)}</p>
+      <p className="text-gray-500">残り時間: {formatTime(count)}</p>
       <div className="progress-circle">
         <CirclarProgress
           initialCount={initialCount}
           size={500}
           strokeWidth={40}
           count={count}
-          color="#aaa"
+          remainingTime={count}
+          className="stroke-ring"
+          isRunning={isRunning}
+          resetHandler={resetHandler}
+          runningToggleHandler={runningToggleHandler}
         />
-      </div>
-      <div>
-        <Button onClick={resetHandler} className="">
-          <ResetIcon className="text-foreground w-5 h-5" />
-        </Button>
-        <Button onClick={runningToggleHandler} className="">
-          {isRunning ? (
-            <StopIcon className="text-foreground w-5 h-5" />
-          ) : (
-            <PlayIcon className="text-foreground w-5 h-5" />
-          )}
-        </Button>
       </div>
     </div>
   );
