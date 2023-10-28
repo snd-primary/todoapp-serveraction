@@ -5,7 +5,6 @@ import { fontSans } from "@/lib/font";
 import { ThemeProvider } from "../context/ThemeProvider";
 import React from "react";
 import Header from "../components/Header";
-import { TodoProvider } from "@/context/TodoProvider";
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -33,7 +32,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <Header />
           <main className="w-full font-sans max-w-full h-screen grid place-content-center place-items-center relative">
-            <TodoProvider>{children}</TodoProvider>
+            {children}
           </main>
         </ThemeProvider>
       </body>

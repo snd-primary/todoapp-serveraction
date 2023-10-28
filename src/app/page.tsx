@@ -29,18 +29,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import {
-  ClockIcon,
-  CheckboxIcon,
-  ExclamationTriangleIcon,
-} from "@radix-ui/react-icons";
-import { useTodo } from "@/context/TodoProvider";
+import { CheckboxIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { HelpPopover } from "@/components/HelpPopover";
 
 const TodoForm: React.FC = () => {
   const router = useRouter();
-  const [, setTodo] = useTodo();
 
   const form = useForm<z.infer<typeof todoFormSchema>>({
     resolver: zodResolver(todoFormSchema, {}, { mode: "async" }),
@@ -53,7 +47,6 @@ const TodoForm: React.FC = () => {
   });
 
   const onSubmit = (values: z.infer<typeof todoFormSchema>) => {
-    setTodo(values);
     localStorage.setItem("todo", JSON.stringify(values));
     router.push("/doing");
   };
