@@ -32,7 +32,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <Header />
-          <main className="w-full max-w-full h-full grid place-content-center place-items-center">
+          <main className="w-full font-sans max-w-full h-screen grid place-content-center place-items-center relative">
             <TodoProvider>{children}</TodoProvider>
           </main>
         </ThemeProvider>

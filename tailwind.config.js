@@ -71,7 +71,17 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["var(--font-sans)"],
+      },
+      keyframes: {
+        blinking: {
+          "0%": { opacity: "0.6" },
+          "50%": { opacity: "1" },
+          "100%": { opacity: "0.6" },
+        },
+      },
+      animation: {
+        blinkng: "blinking 2.5s ease-in-out infinite",
       },
     },
   },

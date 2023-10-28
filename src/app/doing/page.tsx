@@ -1,5 +1,5 @@
 "use client";
-import CountDown from "@/components/CountDown";
+import Timer from "@/components/Timer";
 import { useTodo } from "@/context/TodoProvider";
 import { totalSeconds } from "@/lib/totalSeconds";
 
@@ -8,12 +8,9 @@ const TodoItem: React.FC = () => {
   const TOTAL_SECONDS = totalSeconds(todo);
 
   return (
-    <>
-      <div>
-        <h2 className="text-4xl font-bold">{todo?.title}</h2>
-        <CountDown initialCount={TOTAL_SECONDS} />
-      </div>
-    </>
+    <div>
+      <Timer title={todo.title} initialCount={TOTAL_SECONDS} />
+    </div>
   );
 };
 
