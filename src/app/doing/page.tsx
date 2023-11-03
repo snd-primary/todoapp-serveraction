@@ -1,17 +1,20 @@
-"use client";
 import Timer from "@/components/Timer";
 import { totalSeconds } from "@/lib/totalSeconds";
+import { cookies } from "next/headers";
 
-const TodoItem: React.FC = () => {
-  const storedValue = JSON.parse(localStorage.getItem("todo") || "");
+const TodoTimer: React.FC = async () => {
+  const cookieStore = cookies();
+  const todo = cookieStore.get("form_data");
 
-  const TOTAL_SECONDS = totalSeconds(storedValue);
+  if (!todo) return;
+  const newTodo = JSON.parse(todo.value);
+  const TOTAL_SECONDS = totalSeconds(newTodo);
 
   return (
     <div>
-      <Timer title={storedValue.title} initialCount={TOTAL_SECONDS} />
+      <Timer title={newTodo.title} initialCount={TOTAL_SECONDS} />
     </div>
   );
 };
 
-export default TodoItem;
+export default TodoTimer;

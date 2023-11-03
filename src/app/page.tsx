@@ -32,6 +32,10 @@ import {
 import { CheckboxIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { HelpPopover } from "@/components/HelpPopover";
+import { useEffect } from "react";
+import { TodoProps } from "types/type";
+import { unescape } from "querystring";
+import { setFormData } from "./actions";
 
 const TodoForm: React.FC = () => {
   const router = useRouter();
@@ -47,8 +51,11 @@ const TodoForm: React.FC = () => {
   });
 
   const onSubmit = (values: z.infer<typeof todoFormSchema>) => {
-    localStorage.setItem("todo", JSON.stringify(values));
-    router.push("/doing");
+    setFormData(values)
+      .then(() => {
+        router.push("/doing");
+      })
+      .catch(() => alert("error"));
   };
 
   return (

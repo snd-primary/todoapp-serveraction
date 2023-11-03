@@ -17,7 +17,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="jp" suppressHydrationWarning>
+      <head>
+        <meta charSet="UTF-8" />
+      </head>
       <body
         className={cn(
           "w-full grid  relative min-h-screen bg-background font-mono antialiased",

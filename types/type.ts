@@ -5,3 +5,10 @@ export type TodoProps = {
   seconds: number;
   id?: number;
 };
+
+export type Task = {
+  title: string;
+  hour: number;
+  minutes: number;
+  seconds: number;
+};

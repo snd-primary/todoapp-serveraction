@@ -1,3 +1,4 @@
+"use client";
 import { formatTime } from "@/lib/formatTime";
 import React, { useEffect, useState } from "react";
 import CirclarProgress from "./CirclarProgress";
