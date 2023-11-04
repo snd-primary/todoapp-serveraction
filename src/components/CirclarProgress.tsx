@@ -1,19 +1,12 @@
-import { formatTime } from "@/lib/formatTime";
-import React from "react";
-import { Button } from "./ui/button";
-import { ResetIcon, StopIcon } from "@radix-ui/react-icons";
-import { PlayIcon } from "lucide-react";
+import React, { Children, ReactNode } from "react";
 
 interface CirclarProgressProps {
   size: number;
   strokeWidth: number;
   count: number;
   initialCount: number;
-  remainingTime: number;
   className?: string;
-  resetHandler: () => void;
-  runningToggleHandler: () => void;
-  isRunning: boolean;
+  children: ReactNode;
 }
 
 const CirclarProgress: React.FC<CirclarProgressProps> = ({
@@ -21,11 +14,8 @@ const CirclarProgress: React.FC<CirclarProgressProps> = ({
   strokeWidth,
   count,
   initialCount,
-  remainingTime,
   className,
-  resetHandler,
-  runningToggleHandler,
-  isRunning,
+  children,
 }) => {
   const viewBox = `0 0 ${size} ${size}`;
   const radius = (size - strokeWidth) / 2;
@@ -38,21 +28,7 @@ const CirclarProgress: React.FC<CirclarProgressProps> = ({
   return (
     <div className="grid place-items-center w-full h-full place-content-center relative">
       <div className="absolute grid gap-6 text-center transition-[tranform(50%, -50%)] z-10">
-        <span className="text-6xl font-bold select-none">
-          {remainingTime ? formatTime(remainingTime) : null}
-        </span>
-        <div className="flex items-center gap-4 place-content-center">
-          <Button onClick={resetHandler} className="">
-            <ResetIcon className="text-foreground w-5 h-5" />
-          </Button>
-          <Button onClick={runningToggleHandler} className="">
-            {isRunning ? (
-              <StopIcon className="text-foreground w-5 h-5" />
-            ) : (
-              <PlayIcon className="text-foreground w-5 h-5" />
-            )}
-          </Button>
-        </div>
+        {children}
       </div>
 
       <svg

@@ -3,6 +3,7 @@ import { formatTime } from "@/lib/formatTime";
 import React, { useEffect, useState } from "react";
 import CirclarProgress from "./CirclarProgress";
 import { Badge } from "./ui/badge";
+import Control from "./Control";
 
 interface Props {
   initialCount: number;
@@ -12,6 +13,8 @@ interface Props {
 const Timer: React.FC<Props> = ({ initialCount, title }) => {
   const [count, setCount] = useState(initialCount);
   const [isRunning, setIsRunning] = useState(false);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [endTime, setEndTime] = useState<number | null>(null);
 
   //セットされた値に戻す
   const resetHandler = () => {
@@ -33,10 +36,24 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
     }
   };
 
+  const now = Date.now();
+
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
+    //カウントダウン
     if (isRunning && count > 0) {
       timer = setInterval(() => tick(), 1000);
+    }
+
+    //タイマー初期値時の開始時間と終了時間
+    if (isRunning && count === initialCount) {
+      setStartTime((state) => now);
+      setEndTime((state) => now + initialCount);
+    }
+
+    //タイマー終了
+    if (count === 0) {
+      setIsRunning((prev) => false);
     }
 
     return () => {
@@ -57,7 +74,7 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
               : "bg-muted border border-current text-foreground "
           } mt-1 text-xs select-none pointer-events-none`}
         >
-          {isRunning ? "running" : "waiting..."}
+          {isRunning ? "running" : "stop"}
         </Badge>
       </div>
       <p className="text-gray-500">残り時間: {formatTime(count)}</p>
@@ -67,12 +84,24 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
           size={500}
           strokeWidth={40}
           count={count}
-          remainingTime={count}
           className="stroke-ring"
-          isRunning={isRunning}
-          resetHandler={resetHandler}
-          runningToggleHandler={runningToggleHandler}
-        />
+        >
+          <Control
+            isRunning={isRunning}
+            resetHandler={resetHandler}
+            runningToggleHandler={runningToggleHandler}
+            remainingTime={count}
+          />
+        </CirclarProgress>
+      </div>
+      <div>
+        <span>デバッグ用</span>
+        <div>
+          <span>StartTime:{startTime}</span>
+        </div>
+        <div>
+          <span>Endtime:{endTime}</span>
+        </div>
       </div>
     </div>
   );
