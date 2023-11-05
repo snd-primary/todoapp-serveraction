@@ -6,7 +6,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
-import { setFormData } from "./actions";
+import { setCookie } from "./actions";
 import FormCard from "@/components/FormCard";
 
 const TodoForm: React.FC = () => {
@@ -23,7 +23,7 @@ const TodoForm: React.FC = () => {
   });
 
   const onSubmit = (values: z.infer<typeof todoFormSchema>) => {
-    setFormData(values)
+    setCookie(values)
       .then(() => {
         router.push("/doing");
       })

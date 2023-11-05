@@ -1,39 +1,54 @@
 "use client";
 import { formatTime } from "@/lib/formatTime";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import CirclarProgress from "./CirclarProgress";
 import { Badge } from "./ui/badge";
 import Control from "./Control";
-import { differenceInMilliseconds, differenceInSeconds } from "date-fns";
 
 interface Props {
   initialCount: number;
   title: string;
 }
 
-type TimeStanpType<T extends string | number | symbol> = {
-  [K in T]: number;
-};
+// type TimeStanpType<T extends string | number | symbol> = {
+//   [K in T]: number;
+// };
 
 const Timer: React.FC<Props> = ({ initialCount, title }) => {
   const [count, setCount] = useState<number>(initialCount);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [pause, setPause] = useState<number>(0);
   const [resume, setResume] = useState<number>(0);
+  const [finish, setFinish] = useState<number>(0);
 
-  // const countMilliSeconds = count * 1000;
+  const countMilliSec = initialCount * 1000;
+  const blank = () => {
+    if (resume > pause) {
+      return resume - pause;
+    } else {
+      return 0;
+    }
+  };
 
   const handleStart = () => {
     setIsRunning((state) => true);
+    if (isRunning) return;
     setResume((state) => Date.now());
+
+    if (count === initialCount) {
+      const begin = Date.now();
+      setFinish((state) => Date.now() + countMilliSec);
+    }
   };
 
   const handlePause = () => {
     setIsRunning((state) => false);
+    if (!isRunning) return;
     setPause((state) => Date.now());
   };
 
   const handleReset = () => {
+    if (count === initialCount) return;
     setCount((state) => initialCount);
     setIsRunning((state) => false);
   };
@@ -44,28 +59,13 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
     }
   };
 
-  const diffMilliSec = () => {
-    if (resume > pause) {
-      return resume - pause;
-    }
-  };
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     let timerId: NodeJS.Timeout | null = null;
-    //カウントダウン
+
     if (isRunning && count > 0) {
       timerId = setInterval(() => tick(), 1000);
     }
 
-    //開始時間と終了時間のタイムスタンプを設定
-    // if (isRunning && count === initialCount) {
-    //   setInitialTimeStanp({
-    //     begin: now,
-    //     finish: now + countMilliSeconds,
-    //   });
-    // }
-
-    //タイマー終了
     if (count === 0) {
       setIsRunning((prev) => false);
     }
@@ -74,6 +74,10 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
       if (timerId) clearInterval(timerId);
     };
   }, [count, isRunning]);
+
+  useEffect(() => {
+    setFinish((prevState) => prevState + blank());
+  }, [resume]);
 
   return (
     <div>
@@ -110,12 +114,10 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
       </div>
       <div>
         <span>デバッグ用</span>
-        {/* <div>
-          <span>s:{initialTimeStanp.begin}</span>
-        </div>
+        <div></div>
         <div>
-          <span>e:{initialTimeStanp.finish}</span>
-        </div> */}
+          <span>終了時間:{finish}</span>
+        </div>
         <div>
           <span>再開:{resume}</span>
         </div>
@@ -123,7 +125,7 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
           <span>停止:{pause}</span>
         </div>
         <div>
-          <span>差分:{diffMilliSec()}</span>
+          <span>差分:{blank()}</span>
         </div>
       </div>
     </div>
