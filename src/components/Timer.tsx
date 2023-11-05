@@ -4,28 +4,62 @@ import React, { useEffect, useState } from "react";
 import CirclarProgress from "./CirclarProgress";
 import { Badge } from "./ui/badge";
 import Control from "./Control";
+import { differenceInMilliseconds, differenceInSeconds } from "date-fns";
 
 interface Props {
   initialCount: number;
   title: string;
 }
 
-const Timer: React.FC<Props> = ({ initialCount, title }) => {
-  const [count, setCount] = useState(initialCount);
-  const [isRunning, setIsRunning] = useState(false);
-  const [startTime, setStartTime] = useState<number | null>(null);
-  const [endTime, setEndTime] = useState<number | null>(null);
+type TimeStanpType<T extends string | number | symbol> = {
+  [K in T]: number;
+};
 
-  //セットされた値に戻す
+const Timer: React.FC<Props> = ({ initialCount, title }) => {
+  const [count, setCount] = useState<number>(initialCount);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+
+  const [initialTimeStanp, setInitialTimeStanp] = useState<
+    TimeStanpType<"begin" | "finish">
+  >({
+    begin: 0,
+    finish: 0,
+  });
+  const [diff, setDiff] = useState<TimeStanpType<"pause" | "resume">>({
+    pause: 0,
+    resume: 0,
+  });
+
+  //現在時刻をミリ秒で取得（タイムスタンプ用）
+  const now = Date.now();
+  //countの値をタイムスタンプと足し合わせる時に使用
+  const countMilliSeconds = count * 1000;
+
+  //タイマーを初期状態に戻す
   const resetHandler = () => {
     setCount((prevCount) => initialCount);
     setIsRunning((state) => false);
   };
 
-  //スタート/ストップ
+  //タイマーの停止・再開ボタン
   const runningToggleHandler = () => {
     if (count > 0) {
       setIsRunning((state) => !state);
+    }
+    if (count !== initialCount) {
+      if (isRunning) {
+        setDiff({
+          ...diff,
+          pause: now,
+        });
+      } else {
+        setDiff({
+          ...diff,
+          resume: now,
+        });
+
+        console.log(differenceInSeconds(diff.resume, diff.pause));
+      }
     }
   };
 
@@ -35,9 +69,6 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
       setCount((prevCount) => prevCount - 1);
     }
   };
-
-  const now = Date.now();
-
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
     //カウントダウン
@@ -45,10 +76,12 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
       timer = setInterval(() => tick(), 1000);
     }
 
-    //タイマー初期値時の開始時間と終了時間
+    //開始時間と終了時間のタイムスタンプを設定
     if (isRunning && count === initialCount) {
-      setStartTime((state) => now);
-      setEndTime((state) => now + initialCount);
+      setInitialTimeStanp({
+        begin: now,
+        finish: now + countMilliSeconds,
+      });
     }
 
     //タイマー終了
@@ -97,10 +130,16 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
       <div>
         <span>デバッグ用</span>
         <div>
-          <span>StartTime:{startTime}</span>
+          <span>s:{initialTimeStanp.begin}</span>
         </div>
         <div>
-          <span>Endtime:{endTime}</span>
+          <span>e:{initialTimeStanp.finish}</span>
+        </div>
+        <div>
+          <span>タイマー停止時{diff.pause}</span>
+        </div>
+        <div>
+          <span>タイマー再開時{diff.resume}</span>
         </div>
       </div>
     </div>
