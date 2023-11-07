@@ -1,4 +1,4 @@
-import Timer from "@/app/components/Timer";
+import Timer from "@/components/Timer";
 import { totalSeconds } from "@/lib/totalSeconds";
 import { getTimerDataCookie } from "./action";
 
@@ -7,9 +7,9 @@ const TodoTimer: React.FC = () => {
   const TOTALSEC = totalSeconds(data);
 
   return (
-    <div>
+    <>
       <Timer title={data.title} initialCount={TOTALSEC} />
-    </div>
+    </>
   );
 };
 

@@ -36,11 +36,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <Header />
-          <ClientCookiesProvider value={cookies().getAll()}>
-            <main className="w-full font-sans max-w-full h-screen grid place-content-center place-items-center relative">
-              {children}
-            </main>
-          </ClientCookiesProvider>
+          <main className="w-full font-sans max-w-full h-screen grid place-content-center place-items-center relative">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
