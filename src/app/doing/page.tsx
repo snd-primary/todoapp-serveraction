@@ -1,18 +1,14 @@
-import Timer from "@/components/Timer";
+import Timer from "@/app/components/Timer";
 import { totalSeconds } from "@/lib/totalSeconds";
-import { cookies } from "next/headers";
+import { getTimerDataCookie } from "./action";
 
-const TodoTimer: React.FC = async () => {
-  const cookieStore = cookies();
-  const todo = cookieStore.get("form_data");
-
-  if (!todo) return;
-  const newTodo = JSON.parse(todo.value);
-  const TOTAL_SECONDS = totalSeconds(newTodo);
+const TodoTimer: React.FC = () => {
+  const { data } = getTimerDataCookie();
+  const TOTALSEC = totalSeconds(data);
 
   return (
     <div>
-      <Timer title={newTodo.title} initialCount={TOTAL_SECONDS} />
+      <Timer title={data.title} initialCount={TOTALSEC} />
     </div>
   );
 };

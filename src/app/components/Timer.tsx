@@ -1,9 +1,9 @@
 "use client";
 import { formatTime } from "@/lib/formatTime";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import CirclarProgress from "./CirclarProgress";
-import { Badge } from "./ui/badge";
-import Control from "./Control";
+import CirclarProgress from "../../components/CirclarProgress";
+import { Badge } from "../../components/ui/badge";
+import Control from "../../components/Control";
 
 interface Props {
   initialCount: number;
@@ -19,7 +19,8 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [pause, setPause] = useState<number>(0);
   const [resume, setResume] = useState<number>(0);
-  const [finish, setFinish] = useState<number>(0);
+  const [finishTime, setFinishTime] = useState<number>(0);
+  const [beginTime, setBeginTime] = useState<number>(0);
 
   const countMilliSec = initialCount * 1000;
   const blank = () => {
@@ -36,8 +37,8 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
     setResume((state) => Date.now());
 
     if (count === initialCount) {
-      const begin = Date.now();
-      setFinish((state) => Date.now() + countMilliSec);
+      setBeginTime((state) => Date.now());
+      setFinishTime((state) => Date.now() + countMilliSec);
     }
   };
 
@@ -76,7 +77,7 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
   }, [count, isRunning]);
 
   useEffect(() => {
-    setFinish((prevState) => prevState + blank());
+    setFinishTime((prevState) => prevState + blank());
   }, [resume]);
 
   return (
@@ -116,7 +117,7 @@ const Timer: React.FC<Props> = ({ initialCount, title }) => {
         <span>デバッグ用</span>
         <div></div>
         <div>
-          <span>終了時間:{finish}</span>
+          <span>終了時間:{finishTime}</span>
         </div>
         <div>
           <span>再開:{resume}</span>

@@ -6,7 +6,7 @@ export type TodoProps = {
   id?: number;
 };
 
-export type Task = {
+export type TimerDataType = {
   title: string;
   hour: number;
   minutes: number;
