@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Timer: React.FC<Props> = ({ initialCount, title }) => {
-  const { count, isRunning, handlePause, handleReset, handleStart, tick } =
+  const { count, isRunning, handlePause, handleReset, handleStart } =
     useCountDown({ initialCount });
 
   return (

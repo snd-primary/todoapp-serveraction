@@ -62,6 +62,7 @@ const FormCard: React.FC<FormCardProps> = ({ form, onSubmit }) => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
+            // action={"/doing"}
             className="w-full flex flex-col justify-between items-end gap-12"
           >
             <div className="flex flex-col gap-16 w-full">

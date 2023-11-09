@@ -6,8 +6,24 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
-import { setCookie } from "./actions";
 import FormCard from "@/components/FormCard";
+import { TimerDataType } from "types/type";
+
+type PostTimerDataProps = {
+  values: TimerDataType;
+};
+const postTimerData = async ({ values }: PostTimerDataProps) => {
+  const res = await fetch("/api", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Set-Cookie": `testCookie="auauauauauauauauauauaau"; Secure; Path='/'`,
+    },
+    body: JSON.stringify({ values }),
+  });
+  console.log(values);
+  return res.json();
+};
 
 const TodoForm: React.FC = () => {
   const router = useRouter();
@@ -23,11 +39,7 @@ const TodoForm: React.FC = () => {
   });
 
   const onSubmit = (values: z.infer<typeof todoFormSchema>) => {
-    setCookie(values)
-      .then(() => {
-        router.push("/doing");
-      })
-      .catch(() => alert("error"));
+    postTimerData({ values });
   };
 
   return (
